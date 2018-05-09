@@ -1,4 +1,4 @@
-git stuff
+################# git stuff ###############
 
 …or create a new repository on the command line
 
@@ -13,3 +13,21 @@ git push -u origin master
 
 git remote add origin https://github.com/itisbsg/rcfiles.git
 git push -u origin master
+
+#################### vagrant stuff ##############
+
+#select a vagrant box from https://vagrantcloud.com
+#add it to your list of boxes
+vagrant box add hashicorp/precise64
+
+#create a new folder for your project & init vagrant
+vagrant init hashicorp/precise64
+
+#run your new machine
+vagrant up
+
+#ssh into your new machine
+vagrant ssh
+
+#edit Vagrantfile to change parameters like ip address
+
