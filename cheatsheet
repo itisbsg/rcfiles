@@ -1,15 +1,15 @@
 ################# git stuff ###############
 
-…or create a new repository on the command line
+#…or create a new repository on the command line
 
-echo "# rcfiles" >> README.md
+#echo "# rcfiles" >> README.md
 git init
 git add README.md
 git commit -m "first commit"
 git remote add origin https://github.com/itisbsg/rcfiles.git
 git push -u origin master
 
-…or push an existing repository from the command line
+#…or push an existing repository from the command line
 
 git remote add origin https://github.com/itisbsg/rcfiles.git
 git push -u origin master
@@ -31,3 +31,44 @@ vagrant ssh
 
 #edit Vagrantfile to change parameters like ip address
 
+#################### Docker stuff ##############
+
+#Pointers for golang docker builds
+https://thenewstack.io/dockerize-go-applications/  
+https://docs.docker.com/develop/develop-images/multistage-build/#before-multi-stage-builds
+https://medium.com/@pimterry/5-ways-to-debug-an-exploding-docker-container-4f729e2c0aa8
+
+# Building and running a docker image
+docker build –t <imagename> .
+docker run –p 8000:8000 –d <imagename>
+
+# Building go binaries without cgo support, useful for containers built on base image
+CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o rest-api .
+
+
+#Debugging a container
+docker logs <containerid>
+docker stats <containerid>
+docker cp <containerid>:/path/to/useful/file /local-path
+docker exec -it <containerid> /bin/bash
+
+# Copying docker image across hosts
+
+# You will need to save the docker image as a tar file:
+docker save -o <path for generated tar file> <image name>
+
+# Then copy your image to a new system with regular file
+# transfer tools such as cp or scp. After that you will 
+# have to load the image into docker:
+docker load -i <path to image tar file>
+
+####
+#### DOCKER STUFF ####
+#alias dbuild='sudo docker build -t'
+#alias drun='sudo docker run -it'
+#alias dps='sudo docker ps -a -q'
+#alias dclist='sudo docker container ls --all'
+#alias dcrm='sudo docker container rm'
+#alias dilist='sudo docker image ls'
+#alias dirm='sudo docker image rm'
+#alias dsave='sudo docker save -o'
